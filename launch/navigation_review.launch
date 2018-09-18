@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+<arg name="bag_dir" default="$(env HOME)/test_results"/>
+<arg name="bag_name" default=""/>
+<arg name="rate" default="1"/>
+<param name="use_sim_time" value="true"/>
+<!-- Record all data -->
+<node pkg="rosbag" type="play" name="playback" args="$(arg bag_dir)/$(arg bag_name) --pause --clock -r $(arg rate)" output="screen"/>
+<!--<node pkg="topic_tools" type="throttle" name="bw_saver" args="bytes odometry/filtered 1024 1.0 odometry/throttled"/>-->
+<node pkg="rviz" type="rviz" name="rviz" args="-d $(env HOME)/ROS_ws/src/asv_framework/asv_launch/rviz/mission.rviz"/>
+<node pkg="data_analysis_pkg" type="path_visualisation.py" name="path_vis" output="screen"/>
+</launch>
